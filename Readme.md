@@ -3,9 +3,9 @@ This is a sample project demostrating the use of Django, Vuejs, Graphql, Celery,
     1.https://github.com/rgl/redis/downloads
 
 Steps: 
-1. Goto https://github.com/abhishekzgithub/django-vue-graphql-celery
+1. Goto https://github.com/abhishekzgithub/productimporter
 
-2. Clone the repo: https://github.com/abhishekzgithub/django-vue-graphql-celery.git
+2. Clone the repo: https://github.com/abhishekzgithub/productimporter.git
 3. cd productimporter
 4. pip install pipenv && pipenv shell : this will install pipenv and create a virtual environment.
 5. pipenv install : this will install all the dependency packages
