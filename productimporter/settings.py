@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import dj_database_url
+import django_heroku
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +28,7 @@ SECRET_KEY = 'b#85as+*o!_ge$blz5ptt_7djj)lix=l3o7ejz5_(u6!d2^o_9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1:8000','127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1:8000', '127.0.0.1']
 
 
 # Application definition
@@ -84,14 +87,14 @@ WSGI_APPLICATION = 'productimporter.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'red': {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-import dj_database_url
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=None)
+
+DATABASES['red'] = dj_database_url.config(conn_max_age=None)
 
 
 # Password validation
@@ -164,8 +167,8 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 
-#https://github.com/ottoyiu/django-cors-headers/
-#CORS_ORIGIN_ALLOW_ALL = True
+# https://github.com/ottoyiu/django-cors-headers/
+# CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
     'google.com',
@@ -195,6 +198,4 @@ CORS_ALLOW_HEADERS = (
     'x-requested-with',
 )
 CORS_ALLOW_CREDENTIALS = True
-
-import django_heroku
 django_heroku.settings(locals())

@@ -1,4 +1,3 @@
-web: gunicorn productimporter.wsgi --log-file -
+web: python manage.py runserver 127.0.0.1:8000
 worker: celery -A productimporter worker -l info -P eventlet
 beat: python manage.py productimporter beat –loglevel=info
-

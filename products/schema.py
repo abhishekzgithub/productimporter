@@ -3,39 +3,41 @@ from graphene_django import DjangoObjectType
 from .models import Products
 from django.db.models import Q
 
+
 class ProductsType(DjangoObjectType):
     class Meta:
         model = Products
 
+
 # Query to get data from the server, query with products name
 class Query(graphene.ObjectType):
     products = graphene.List(ProductsType,
-                           search=graphene.String(),
-                           first=graphene.Int(),
-                           skip=graphene.Int(),
-                           last=graphene.Int(),
-                           find=graphene.String()
+                            search=graphene.String(),
+                            first=graphene.Int(),
+                            skip=graphene.Int(),
+                            last=graphene.Int(),
+                            find=graphene.String()
                            )
 
-    def resolve_products(self, info, search=None, first=None, skip=None, last=None,find=None, **kwargs):
+    def resolve_products(self, info, search=None, first=None, skip=None, last=None, find=None, **kwargs):
         qs = Products.objects.all()
 
         # Search records which partially matches name and url
         if search:
             filter = (
                 Q(name__icontains=search) |
-                Q(sku__icontains=search)  |
-                Q(description__icontains=search)|
+                Q(sku__icontains=search) |
+                Q(description__icontains=search) |
                 Q(flag__icontains=search)
             )
             qs = qs.filter(filter)
-        #filter the records            
+        # filter the records
         if find:
-            query=eval(find)
-            name=query.get('name','')
-            sku=query.get('sku','')
-            description=query.get('description','')
-            qs=Products.objects.filter(name__iexact=name, sku__icontains= sku,description__icontains= description)
+            query = eval(find)
+            name = query.get('name', '')
+            sku = query.get('sku', '')
+            description = query.get('description', '')
+            qs = Products.objects.filter(name__iexact=name, sku__icontains=sku, description__icontains=description)
         # Skip n records
         if skip:
             qs = qs[skip::]
@@ -48,7 +50,6 @@ class Query(graphene.ObjectType):
         if last:
             last_n = qs.order_by('-id')[:last]
             qs = reversed(last_n)
-        
         return qs
 
 
@@ -66,17 +67,15 @@ class ProductMutation(graphene.Mutation):
         description = graphene.String()
         flag = graphene.String()
 
-
     def mutate(self, info, name, sku, description, flag):
-        product = Products(name=name, sku=sku, description = description, flag=flag)
+        product = Products(name=name, sku=sku, description=description, flag=flag)
         product.save()
-
         return ProductMutation(
             id=product.id,
             name=product.name,
-            sku = product.sku,
-            description = product.description,
-            flag = product.flag
+            sku=product.sku,
+            description=product.description,
+            flag=product.flag
         )
 
 

@@ -15,21 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', include('products.urls'), name='products'),
 ]
-from django.views.generic.base import TemplateView
-urlpatterns+=[
-    path("",TemplateView.as_view(template_name="index.html")),
-    path("searchpage",TemplateView.as_view(template_name="searchpage.html"),name="searchpage"),
+
+urlpatterns += [
+    path("", TemplateView.as_view(template_name="index.html")),
+    path("searchpage", TemplateView.as_view(template_name="searchpage.html"), name="searchpage"),
 ]
 
-from django.views.decorators.csrf import csrf_exempt
-from graphene_django.views import GraphQLView
-urlpatterns+=[
+urlpatterns += [
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    
 ]

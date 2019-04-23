@@ -1,5 +1,6 @@
 # django-vue-graphql-celery
-This is a sample project demostrating the use of Django, Vuejs, Graphql, Celery, Redis to asychronously process huge job of loading file into the database.
+This is a sample project demostrating the use of Django, Vuejs, Graphql, Celery, Redis to asychronously process huge job of loading file into the database. You will have to download the redis for windows from 
+    1.https://github.com/rgl/redis/downloads
 
 Steps: 
 1. Goto https://github.com/abhishekzgithub/django-vue-graphql-celery
@@ -49,4 +50,8 @@ Steps:
     2. git commit -m "message"
     3. git push origin master
     4. git push heroku master
-8. 
+8. For the database configuration on heroku, install the addon and use below line for the changes.
+    DATABASES['default'] = dj_database_url.config(conn_max_age=None)
+9. configuring the redis is a bit costly as you may have to upgrade your account.
+
+10. It can be seen here. https://productimporter.herokuapp.com/
