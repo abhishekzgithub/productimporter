@@ -35,3 +35,18 @@ Steps:
         }
         }
     """
+
+# How to deploy to heroku
+* follow this link : https://devcenter.heroku.com/articles/getting-started-with-python
+1. Install the heroku cli
+2. heroku login -> It will ask to open browser where you can login.
+3. heroku create <app name> -> this will become the url as well
+4. git push heroku master -> make sure you are in the root directory of your app
+5. heroku ps:scale web=1 -> to scale the web app created
+6. heroku open will show you your homepage
+7. if any changes are made, do 
+    1. git add .
+    2. git commit -m "message"
+    3. git push origin master
+    4. git push heroku master
+8. 
